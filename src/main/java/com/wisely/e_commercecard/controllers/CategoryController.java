@@ -5,7 +5,6 @@ import com.wisely.e_commercecard.exception.ResourceNotFoundException;
 import com.wisely.e_commercecard.model.Category;
 import com.wisely.e_commercecard.response.ApiResponse;
 import com.wisely.e_commercecard.service.category.ICategoryService;
-import com.wisely.e_commercecard.service.product.IProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -73,7 +72,7 @@ public class CategoryController {
         }
     }
 
-    @PutMapping("/updateCategoryById/{id}")
+    @PutMapping("/updateCategoryById/{categoryId}")
     public ResponseEntity<ApiResponse> updateCategory(@RequestBody Category category ,@PathVariable Long categoryId) {
         try {
             Category catchCategory = categoryService.updateCategory(category,categoryId);
