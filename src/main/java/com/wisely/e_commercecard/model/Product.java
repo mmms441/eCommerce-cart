@@ -1,5 +1,6 @@
 package com.wisely.e_commercecard.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class Product {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
     private Category category;
+
 
     @OneToMany(mappedBy = "product" ,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images;

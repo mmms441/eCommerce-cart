@@ -1,5 +1,6 @@
 package com.wisely.e_commercecard.controllers;
 
+import com.wisely.e_commercecard.dto.ProductDto;
 import com.wisely.e_commercecard.exception.ResourceNotFoundException;
 import com.wisely.e_commercecard.model.Product;
 import com.wisely.e_commercecard.requsets.AddProductRequest;
@@ -40,8 +41,8 @@ public class ProductController {
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addProduct(@RequestBody AddProductRequest product){
         try {
-            productService.addProduct(product);
-            return ResponseEntity.ok(new ApiResponse("added" ,product));
+            Product theproduct =productService.addProduct(product);
+             return ResponseEntity.ok(new ApiResponse("added" ,theproduct));
         } catch (Exception e) {
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage() ,null));
         }

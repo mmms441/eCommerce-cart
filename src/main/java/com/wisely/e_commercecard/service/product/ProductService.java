@@ -21,25 +21,16 @@ public class ProductService implements IProductService {
     private final CategoryRepository categoryRepository;
     @Override
     public Product addProduct(AddProductRequest request){
-        Category category = Optional.ofNullable(categoryRepository
-                        .findByName(request.getCategory().getName()))
-                .orElseGet(()->{
-                    List<Product> categories = new ArrayList<>();
-                    Category newCategory = new Category(1L,request.getCategory().getName() ,categories);
-                    return categoryRepository.save(newCategory);
-                });
-        request.setCategory(category);
-        return productRepository.save(createproduct(request,category));
-    }
-   /* public Product addProduct(AddProductRequest request) {
         Category category = Optional.ofNullable(categoryRepository.findByName(request.getCategory().getName()))
-                .orElseGet(()->{
+                .orElseGet(() -> {
                     Category newCategory = new Category(request.getCategory().getName());
                     return categoryRepository.save(newCategory);
                 });
-        return null;
-    }*/
-    public Product createproduct(AddProductRequest request , Category category) {
+        request.setCategory(category);
+        return productRepository.save(createProduct(request, category));
+    }
+
+    public Product createProduct(AddProductRequest request , Category category) {
         return new Product(
                 request.getName(),
                 request.getBrand(),
