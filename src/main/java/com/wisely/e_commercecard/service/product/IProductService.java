@@ -1,5 +1,6 @@
 package com.wisely.e_commercecard.service.product;
 
+import com.wisely.e_commercecard.dto.ProductDto;
 import com.wisely.e_commercecard.model.Product;
 import com.wisely.e_commercecard.requsets.AddProductRequest;
 import com.wisely.e_commercecard.requsets.ProductUpdateRequest;
@@ -19,4 +20,8 @@ public interface IProductService {
     List<Product> getProductsByName(String name);
     List<Product> getProductsByBrandAndName(String brand, String name);
     Long countProductsBtBrandAndName(String brand, String name);
+
+    List<ProductDto> getConvertedProducts(List<Product> products);
+
+    ProductDto convertToDto(Product product);
 }
