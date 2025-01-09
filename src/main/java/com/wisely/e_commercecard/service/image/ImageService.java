@@ -39,12 +39,12 @@ public class ImageService implements IImageService {
             image.setProduct(product);
 
 
-            String constDownload ="/api/v1/images/image/download";
+            String constDownload ="/api/v1/images/image/download/";
             image.setDownloadUrl(constDownload+image.getId());
             Image savedImage =imageRepository.save(image);
 
             image.setDownloadUrl(constDownload+savedImage.getId());
-            imageRepository.save(image);
+            imageRepository.save(savedImage);
 
             ImageDto imageDto = new ImageDto();
                 imageDto.setId(savedImage.getId());

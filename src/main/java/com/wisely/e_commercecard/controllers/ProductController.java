@@ -25,14 +25,16 @@ public class ProductController {
     @GetMapping("/all")
     public ResponseEntity<ApiResponse> getAllProducts(){
         List<Product> products=productService.getAllProducts();
-        return ResponseEntity.ok(new ApiResponse("found" ,products));
+        List<ProductDto> convertedProducts = productService.getConvertedProducts(products);
+        return ResponseEntity.ok(new ApiResponse("found" ,convertedProducts));
     }
 
     @GetMapping("/getProductById/{id}")
     public ResponseEntity<ApiResponse> getProductById(@PathVariable Long id){
         try {
             Product product=productService.getProductById(id);
-            return ResponseEntity.ok(new ApiResponse("found" ,product));
+            ProductDto productDto = productService.convertToDto(product);
+            return ResponseEntity.ok(new ApiResponse("found" ,productDto));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage() ,null));
         }
@@ -75,7 +77,9 @@ public class ProductController {
         if(product.isEmpty()){
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("not found" ,null));
         }
-            return ResponseEntity.ok(new ApiResponse("found" ,product));
+        List<ProductDto> convertedProducts = productService.getConvertedProducts(product);
+
+            return ResponseEntity.ok(new ApiResponse("found" ,convertedProducts));
         } catch (Exception e) {
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage() ,null));        }
     }
